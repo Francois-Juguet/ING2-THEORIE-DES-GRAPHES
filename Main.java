@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         Path p = Paths.get("graph.txt");
 
-        WelshPowellColoring graphColoring = new WelshPowellColoring();
+        WelshPowell graphColoring = new WelshPowell();
         graphColoring.readGraphFromFile("graph.txt");
-        graphColoring.welshPowellColoring();
+        graphColoring.welshPowell();
 
 }   }
