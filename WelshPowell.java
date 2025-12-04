@@ -12,7 +12,7 @@ public class WelshPowell {
 
     private int numVertices;
     private int[][] adjMatrix;
-    private List<Vortex> vertices;
+    private List<Tri> vertices;
 
     /**
      * Charge la matrice d'adjacence à partir du fichier.
@@ -55,7 +55,7 @@ public class WelshPowell {
                         throw new IOException("Erreur: Ligne " + (i + 1) + " dans le fichier n'a pas assez d'éléments.");
                     }
                 }
-                vertices.add(new Vortex(i, degree));
+                vertices.add(new Tri(i, degree));
             }
 
             System.out.println("Graphe chargé avec " + numVertices + " sommets.");
@@ -77,9 +77,9 @@ public class WelshPowell {
         }
 
         // Étape 1: Trier les sommets par ordre de degré décroissant
-        Collections.sort(vertices, Vortex.DegreeComparator);
+        Collections.sort(vertices, Tri.DegreeComparator);
         System.out.println("\nSommets triés par degré décroissant:");
-        for (Vortex v : vertices) {
+        for (Tri v : vertices) {
             System.out.println("Sommet " + v.id + " (Degré: " + v.degree + ")");
         }
 
@@ -89,28 +89,28 @@ public class WelshPowell {
         // Étape 2: Coloration séquentielle
         while (coloredCount < numVertices) {
             // Trouver le premier sommet non coloré
-            Vortex startVortex = null;
-            for (Vortex v : vertices) {
+            Tri startTri = null;
+            for (Tri v : vertices) {
                 if (v.color == -1) {
-                    startVortex = v;
+                    startTri = v;
                     break;
                 }
             }
 
-            if (startVortex == null) break; // Tous les sommets sont colorés
+            if (startTri == null) break; // Tous les sommets sont colorés
 
             // Attribuer la couleur actuelle au sommet de départ
-            startVortex.color = currentColor;
+            startTri.color = currentColor;
             coloredCount++;
 
             // Parcourir les autres sommets dans l'ordre trié
-            for (Vortex current : vertices) {
+            for (Tri current : vertices) {
                 // Si le sommet n'est pas encore coloré
                 if (current.color == -1) {
                     boolean isAdjacentToSameColor = false;
 
                     // Vérifier s'il est adjacent à un sommet ayant déjà 'currentColor'
-                    for (Vortex colored : vertices) {
+                    for (Tri colored : vertices) {
                         // On vérifie seulement les sommets déjà colorés avec 'currentColor'
                         if (colored.color == currentColor) {
                             // current.id et colored.id sont les indices de la matrice
@@ -139,10 +139,11 @@ public class WelshPowell {
     private void displayResults(int totalColors) {
         System.out.println("\n--- Résultat de la Coloration Welsh-Powell ---");
         System.out.println("Nombre chromatique trouvé: " + totalColors);
-        for (Vortex v : vertices) {
+        for (Tri v : vertices) {
             System.out.println("Sommet " + v.id + " -> Couleur " + v.color);
         }
         System.out.println("---------------------------------------------");
     }
 
 }
+
