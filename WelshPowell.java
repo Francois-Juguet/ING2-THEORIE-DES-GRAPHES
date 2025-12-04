@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class WelshPowellColoring {
+public class WelshPowell {
 
     private int numVertices;
     private int[][] adjMatrix;
@@ -144,4 +144,5 @@ public class WelshPowellColoring {
         }
         System.out.println("---------------------------------------------");
     }
+
 }
